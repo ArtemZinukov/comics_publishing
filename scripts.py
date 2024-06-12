@@ -4,7 +4,7 @@ import random
 import requests
 
 
-def download_comics_xkcd():
+def download_comic_xkcd():
     total_comics = 2944
     random_comics = random.randint(1, total_comics)
     url = f"https://xkcd.com/{random_comics}/info.0.json"
@@ -14,7 +14,7 @@ def download_comics_xkcd():
     url_image = comic_info["img"]
     comic_number = comic_info["num"]
     filename = os.path.join("Images", f"{comic_number}.png")
-    write_to_file(url_image, filename)
+    return write_to_file(url_image, filename)
 
 
 def write_to_file(url, filename, params=None):
@@ -22,11 +22,4 @@ def write_to_file(url, filename, params=None):
     response.raise_for_status()
     with open(filename, "wb") as file:
         file.write(response.content)
-
-
-def remove_file():
-    document_dir = os.path.join(os.getcwd(), "Images")
-    files = glob.glob(os.path.join(document_dir, '*'))
-    for file in files:
-        os.remove(file)
-
+    return filename

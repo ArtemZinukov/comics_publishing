@@ -3,17 +3,17 @@ import os
 import telegram
 
 from environs import Env
-from scripts import download_comics_xkcd, remove_file
+from scripts import download_comic_xkcd
 
 
-def send_messages(bot, chat_id):
-    document_dir = os.path.join(os.getcwd(), "Images")
-    for comics in os.listdir(document_dir):
-        path_to_file = os.path.join(document_dir, comics)
+def send_and_delete_comic(bot, chat_id, path_to_file):
+    try:
         with open(path_to_file, "rb") as file:
             document = file.read()
         bot.send_document(chat_id=chat_id,
                           document=document)
+    finally:
+        os.remove(path_to_file)
 
 
 def main():
@@ -21,9 +21,8 @@ def main():
     env.read_env()
     bot = telegram.Bot(token=env.str("TG_BOT_TOKEN"))
     tg_chat_id = env.str("TG_CHAT_ID")
-    download_comics_xkcd()
-    send_messages(bot, tg_chat_id)
-    remove_file()
+    filename = download_comic_xkcd()
+    send_and_delete_comic(bot, tg_chat_id, filename)
 
 
 if __name__ == "__main__":
