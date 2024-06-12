@@ -5,7 +5,8 @@ import requests
 
 
 def download_comics_xkcd():
-    random_comics = random.randint(1, 2944)  # Выбор из всех комиксов, где 2944 последний комикс
+    total_comics = 2944
+    random_comics = random.randint(1, total_comics)
     url = f"https://xkcd.com/{random_comics}/info.0.json"
     response = requests.get(url)
     response.raise_for_status()
