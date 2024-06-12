@@ -10,9 +10,9 @@ def download_comics_xkcd():
     url = f"https://xkcd.com/{random_comics}/info.0.json"
     response = requests.get(url)
     response.raise_for_status()
-    response_json = response.json()
-    url_image = response_json["img"]
-    comic_number = response_json["num"]
+    comic_info = response.json()
+    url_image = comic_info["img"]
+    comic_number = comic_info["num"]
     filename = f"Images/{comic_number}.png"
     write_to_file(url_image, filename)
 
