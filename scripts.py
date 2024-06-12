@@ -13,7 +13,7 @@ def download_comics_xkcd():
     comic_info = response.json()
     url_image = comic_info["img"]
     comic_number = comic_info["num"]
-    filename = f"Images/{comic_number}.png"
+    filename = os.path.join("Images", f"{comic_number}.png")
     write_to_file(url_image, filename)
 
 
@@ -25,7 +25,7 @@ def write_to_file(url, filename, params=None):
 
 
 def remove_file():
-    document_dir = "./Images"
+    document_dir = os.path.join(os.getcwd(), "Images")
     files = glob.glob(os.path.join(document_dir, '*'))
     for file in files:
         os.remove(file)

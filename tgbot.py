@@ -7,9 +7,9 @@ from scripts import download_comics_xkcd, remove_file
 
 
 def send_messages(bot, chat_id):
-    document_dir = os.listdir("./Images")
-    for comics in document_dir:
-        path_to_file = f"./images/{comics}"
+    document_dir = os.path.join(os.getcwd(), "Images")
+    for comics in os.listdir(document_dir):
+        path_to_file = os.path.join(document_dir, comics)
         with open(path_to_file, "rb") as file:
             document = file.read()
         bot.send_document(chat_id=chat_id,
