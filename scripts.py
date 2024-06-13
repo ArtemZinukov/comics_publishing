@@ -22,3 +22,7 @@ def write_to_file(url, filename, params=None):
     with open(filename, "wb") as file:
         file.write(response.content)
     return filename
+
+
+def delete_comic(path_to_file):
+    os.remove(path_to_file)
