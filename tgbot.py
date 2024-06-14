@@ -18,9 +18,11 @@ def main():
     env.read_env()
     bot = telegram.Bot(token=env.str("TG_BOT_TOKEN"))
     tg_chat_id = env.str("TG_CHAT_ID")
-    filename = download_comic_xkcd()
-    send_comic(bot, tg_chat_id, filename)
-    delete_comic(filename)
+    try:
+        filename = download_comic_xkcd()
+        send_comic(bot, tg_chat_id, filename)
+    finally:
+        delete_comic(filename)
 
 
 if __name__ == "__main__":
